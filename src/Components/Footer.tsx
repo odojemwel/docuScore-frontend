@@ -1,0 +1,15 @@
+import { Box, Divider, Typography } from '@mui/material'
+
+
+
+export default function () {
+  return (
+    <footer style={{ maxHeight: '50px', marginTop: '40px' }}>
+      <Divider variant='middle' sx={{ borderBottomWidth: '1px', borderColor: '#8E8E8E' }} />
+      <Box sx={{ padding: '15px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+        <Typography variant='caption'>Jemwel Odo BSIT-3 | CSIT321 G1 - C0</Typography>
+        <Typography variant='caption'>Copyright Ⓒ vVv. All Rights Reserved.</Typography>
+      </Box>
+    </footer>
+  )
+}
