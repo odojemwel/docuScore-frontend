@@ -1,15 +1,15 @@
-import { AccountCircle, AccountCircleOutlined, AccountCircleTwoTone } from '@mui/icons-material'
-import { AppBar, Icon, IconButton, Tab, Tabs, Toolbar, Typography } from '@mui/material'
-import React, { useContext } from 'react'
+import { AccountCircleTwoTone } from '@mui/icons-material'
+import { IconButton, Tab, Tabs, Toolbar, Typography } from '@mui/material'
+import { useContext } from 'react'
 import { NavigationContext } from './Navigation';
+import { PageContainerContext } from './PageContainer';
 
 const TopNavBar = () => {
 
 
-  const NavContext = useContext(NavigationContext);
+  const NavContext = useContext(PageContainerContext);
   return (
     <Toolbar>
-      {/* change to docuScore Image */}
       <Typography variant='h5' sx={{ marginX: '10px', fontWeight: 700 }}>
         docuScore
       </Typography>

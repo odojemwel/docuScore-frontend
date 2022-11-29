@@ -2,6 +2,7 @@ import React, { createContext, Dispatch, SetStateAction, useContext, useState } 
 import { CreateNewFolderOutlined, CreateNewFolderRounded, DocumentScannerOutlined, DocumentScannerRounded, GetAppOutlined, GetAppRounded, HomeOutlined, HomeRounded } from '@mui/icons-material'
 import { Avatar, Box, IconButton, styled, Typography } from '@mui/material'
 import { NavigationContext } from './Navigation';
+import { PageContainerContext } from './PageContainer';
 
 
 interface HomeBtnContexts {
@@ -13,17 +14,17 @@ export const HomeBtnContext = createContext<HomeBtnContexts | null>(null);
 
 const HomeButton = () => {
   const [active, setActive] = useState(false);
-  const NavContext = useContext(NavigationContext);
+  const NavContext = useContext(PageContainerContext);
 
   return (
     <HomeBtnContext.Provider value={{ active, setActive }}>
       <BoxContainer
         onClick={() => {
-          NavContext?.setSelectedIndex(0);
-          NavContext?.setTab_value(-1);
+          NavContext?.setSelectedIndex(1);
+          NavContext?.setTab_value(0);
         }}
       >
-        {NavContext?.selectedIndex === 0 && NavContext.tab_value === -1 ?
+        {NavContext?.selectedIndex === 1 && NavContext.tab_value === 0 ?
           <HomeActive /> : <HomeNotActive />}
         <Typography variant='caption'
           sx={{ textColor: 'primary' }}
@@ -39,7 +40,6 @@ const HomeButton = () => {
 export default HomeButton
 
 export const HomeActive = () => {
-  const HomeContext = useContext(HomeBtnContext)
 
   return (
     <Avatar>
@@ -52,7 +52,6 @@ export const HomeActive = () => {
 }
 
 export const HomeNotActive = () => {
-  const HomeContext = useContext(HomeBtnContext)
   return (
     <StyledButton color='primary'>
       <HomeOutlined />
@@ -91,15 +90,15 @@ export const CreateClassBtnContext = createContext<CreateClassBtnContexts | null
 
 export const CreateClassButton = () => {
   const [active, setActive] = useState(false)
-  const NavContext = useContext(NavigationContext);
+  const NavContext = useContext(PageContainerContext);
   return (
     <CreateClassBtnContext.Provider value={{ active, setActive }}>
       <BoxContainer
         onClick={() => {
-          NavContext?.setSelectedIndex(1);
-          NavContext?.setTab_value(-1);
+          NavContext?.setSelectedIndex(2);
+          NavContext?.setTab_value(0);
         }}>
-        {NavContext?.selectedIndex === 1 && NavContext.tab_value === -1 ?
+        {NavContext?.selectedIndex === 2 && NavContext.tab_value === 0 ?
           <CreateClassActive /> : <CreateClassNotActive />}
         <Typography variant='caption'
           sx={{ textColor: 'primary' }}
@@ -124,7 +123,6 @@ export const CreateClassActive = () => {
 }
 
 export const CreateClassNotActive = () => {
-  const CCContext = useContext(CreateClassBtnContext)
   return (
     <StyledButton color='primary'>
       <CreateNewFolderOutlined />
@@ -145,15 +143,15 @@ export const ScanBtnContext = createContext<ScanBtnContexts | null>(null);
 
 export const ScanButton = () => {
   const [active, setActive] = useState(false)
-  const NavContext = useContext(NavigationContext);
+  const NavContext = useContext(PageContainerContext);
   return (
     <ScanBtnContext.Provider value={{ active, setActive }}>
       <BoxContainer
         onClick={() => {
-          NavContext?.setSelectedIndex(2);
-          NavContext?.setTab_value(-1);
+          NavContext?.setSelectedIndex(3);
+          NavContext?.setTab_value(0);
         }}>
-        {NavContext?.selectedIndex === 2 && NavContext.tab_value === -1 ?
+        {NavContext?.selectedIndex === 3 && NavContext.tab_value === 0 ?
           <ScanButtonActive /> : <ScanButtonNotActive />}
         <Typography variant='caption'
           sx={{ textColor: 'primary' }}
@@ -166,7 +164,6 @@ export const ScanButton = () => {
 }
 
 export const ScanButtonActive = () => {
-  const ScanContext = useContext(ScanBtnContext)
   return (
     <Avatar>
       <IconButton color='primary' disableRipple>
@@ -177,7 +174,6 @@ export const ScanButtonActive = () => {
 }
 
 export const ScanButtonNotActive = () => {
-  const ScanContext = useContext(ScanBtnContext)
   return (
     <StyledButton color='primary'>
       <DocumentScannerOutlined />
@@ -195,15 +191,15 @@ export const ExportBtnContext = createContext<ExportBtnContexts | null>(null);
 
 export const ExportButton = () => {
   const [active, setActive] = useState(false)
-  const NavContext = useContext(NavigationContext);
+  const NavContext = useContext(PageContainerContext);
   return (
     <ExportBtnContext.Provider value={{ active, setActive }}>
       <BoxContainer
         onClick={() => {
-          NavContext?.setSelectedIndex(3);
-          NavContext?.setTab_value(-1);
+          NavContext?.setSelectedIndex(4);
+          NavContext?.setTab_value(0);
         }}>
-        {NavContext?.selectedIndex === 3 && NavContext.tab_value === -1 ?
+        {NavContext?.selectedIndex === 4 && NavContext.tab_value === 0 ?
           <ExportButtonActive /> : <ExportButtonNotActive />}
         <Typography variant='caption'
           sx={{ textColor: 'primary' }}
@@ -216,7 +212,6 @@ export const ExportButton = () => {
 }
 
 export const ExportButtonActive = () => {
-  const ExportContext = useContext(ExportBtnContext)
   return (
     <Avatar>
       <IconButton color='primary' disableRipple>
@@ -227,7 +222,6 @@ export const ExportButtonActive = () => {
 }
 
 export const ExportButtonNotActive = () => {
-  const ExportContext = useContext(ExportBtnContext)
   return (
     <StyledButton color='primary'>
       <GetAppOutlined />
