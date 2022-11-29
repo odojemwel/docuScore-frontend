@@ -20,17 +20,20 @@ export const PageContainerContext = createContext<{
   selectedIndex: number,
   tab_value: number,
   setTab_value: Dispatch<React.SetStateAction<number>>,
+  logged_in: boolean,
 } | null>(null);
 
 export default function PageContainer(props: PageContainerProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [tab_value, setTab_value] = useState(0);
+  const [logged_in, setLogged_in] = useState(props.logged_in!)
   return (
     <PageContainerContext.Provider value={{
       selectedIndex,
       setSelectedIndex,
       tab_value,
       setTab_value,
+      logged_in,
     }}>
       <Box sx={{ display: 'flex' }}>
         <Box>
@@ -81,7 +84,7 @@ export default function PageContainer(props: PageContainerProps) {
         <Box component="main"
           sx={{ flexGrow: 1, bgcolor: 'background.default', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
           <Toolbar />
-          <Box sx={{ border: 1, px: '100px', flexGrow: 1, padding: '30px' }} >
+          <Box sx={{ px: '100px', flexGrow: 1, padding: '30px' }} >
             {props.children}
           </Box>
           <Footer />
