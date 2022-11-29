@@ -1,5 +1,5 @@
 import { AccountCircleTwoTone } from '@mui/icons-material'
-import { IconButton, Tab, Tabs, Toolbar, Typography } from '@mui/material'
+import { Button, IconButton, Tab, Tabs, Toolbar, Typography } from '@mui/material'
 import { useContext } from 'react'
 import { NavigationContext } from './Navigation';
 import { PageContainerContext } from './PageContainer';
@@ -24,14 +24,26 @@ const TopNavBar = () => {
         <Tab value={2} sx={{ color: '#000000', marginX: '10px' }}
           label="Contact Us" disableTouchRipple disableRipple />
       </Tabs>
-      <Typography sx={{ marginX: '10px' }}>
-        Bilbo Baggins
-      </Typography>
-      <IconButton sx={{ marginX: "10px" }}
-        color="secondary"
-        size='medium'>
-        <AccountCircleTwoTone />
-      </IconButton>
+      {
+        NavContext?.logged_in ?
+          <>
+            <Typography sx={{ marginX: '10px' }}>
+              Bilbo Baggins
+            </Typography>
+            <IconButton sx={{ marginX: "10px" }}
+              color="secondary"
+              size='medium'>
+              <AccountCircleTwoTone />
+            </IconButton>
+          </> :
+          <>
+            <Button variant='contained' color='secondary'
+              sx={{ marginX: '30px' }}>
+              Register
+            </Button>
+          </>
+      }
+
     </Toolbar>
   )
 }
