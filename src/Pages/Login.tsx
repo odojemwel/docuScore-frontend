@@ -8,7 +8,7 @@ const Login = () => {
   return (
     <PageContainer>
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '20px', paddingX: '70px' }}>
-        <Grid container columnSpacing={5}>
+        <Grid container columnSpacing={20}>
           <Grid item xs={6} sx={{ display: 'flex', flexDirection: 'column' }}>
             <Box sx={{
               flexGrow: .5,
@@ -66,7 +66,7 @@ const Login = () => {
                     Login
                   </Button>
                   <Stack alignItems='center' spacing={1}>
-                    <Typography>New to docuScore?</Typography>
+                    <Typography variant='subtitle2'>New to docuScore?</Typography>
                     <Button
                       variant='outlined' size='medium' color='secondary'
                       sx={{ width: '100%' }}>

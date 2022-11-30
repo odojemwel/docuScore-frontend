@@ -84,7 +84,7 @@ export default function PageContainer(props: PageContainerProps) {
         <Box component="main"
           sx={{ flexGrow: 1, bgcolor: 'background.default', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
           <Toolbar />
-          <Box sx={{ px: '100px', flexGrow: 1, padding: '30px' }} >
+          <Box sx={{ px: '100px', flexGrow: 1, padding: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} >
             {props.children}
           </Box>
           <Footer />
