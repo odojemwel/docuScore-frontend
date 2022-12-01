@@ -5,8 +5,11 @@ import { createTheme } from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
 import Dashboard from './Pages/Dashboard';
 import SamplePage from './Pages/SamplePage';
-import Class from './Pages/Class';
+import TopNavBar from './Components/TopNavBar';
 import Login from './Pages/Login';
+import Register from './Pages/Register';
+import Class from './Pages/Class';
+import ClassDetails from './Pages/ClassDetails';
 
 const theme = createTheme({
   typography: {
@@ -38,6 +41,46 @@ const theme = createTheme({
           height: '40px'
         }
       }
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          '& label.Mui-focused': {
+            color: '#000000',
+          },
+          '& .MuiInput-underline:after': {
+            borderBottomColor: '#76C8FF',
+          },
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+              borderColor: '#76C8FF',
+              borderWidth: '2px'
+            },
+            '&:hover fieldset': {
+              borderColor: '#76C8FF',
+              borderWidth: '2px'
+            },
+            '&.Mui-focused fieldset': {
+              borderColor: '#76C8FF',
+            },
+          },
+
+          '& .MuiFilledInput-root': {
+            '& fieldset': {
+              borderColor: '#76C8FF',
+              borderWidth: '2px'
+            },
+            '&:hover fieldset': {
+              borderColor: '#76C8FF',
+              borderWidth: '2px'
+            },
+            '&.Mui-focused fieldset': {
+              borderColor: '#76C8FF',
+            },
+          },
+
+        }
+      }
     }
   }
 });
@@ -47,10 +90,11 @@ const theme = createTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      {/* <Login />   */}
-      < Class/> 
-      {/* <Dashboard /> */}
-      {/* <SamplePage /> */}
+      <Dashboard />
+      {/* <Login /> */}
+      {/* <Register /> */}
+      {/* <Class /> */}
+      {/* <ClassDetails /> */}
     </ThemeProvider>
   );
 }
