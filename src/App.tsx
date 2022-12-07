@@ -10,6 +10,9 @@ import Login from './Pages/Login';
 import Register from './Pages/Register';
 import Class from './Pages/Class';
 import Editclass from './Pages/Editclass';
+import StudentDetails from './Pages/StudentDetails';
+import EditStudent from './Pages/EditStudent';
+import CreateStudent from './Pages/CreateStudent';
 
 
 const theme = createTheme({
@@ -95,8 +98,11 @@ function App() {
       {/* <Login /> */}
       {/* <Register /> */}
       {/* <Class /> */}
-      <Editclass />
+      {/* <Editclass /> */}
       {/* <ClassDetails /> */}
+     <CreateStudent />
+      {/* <StudentDetails /> */}
+      {/* <EditStudent/> */}
     </ThemeProvider>
   );
 }
