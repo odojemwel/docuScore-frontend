@@ -9,7 +9,11 @@ import TopNavBar from './Components/TopNavBar';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
 import Class from './Pages/Class';
-import ClassDetails from './Pages/ClassDetails';
+import Editclass from './Pages/Editclass';
+import StudentDetails from './Pages/StudentDetails';
+import EditStudent from './Pages/EditStudent';
+import CreateStudent from './Pages/CreateStudent';
+
 
 const theme = createTheme({
   typography: {
@@ -90,11 +94,15 @@ const theme = createTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Dashboard />
+      {/* <Dashboard /> */}
       {/* <Login /> */}
       {/* <Register /> */}
       {/* <Class /> */}
+      {/* <Editclass /> */}
       {/* <ClassDetails /> */}
+     <CreateStudent />
+      {/* <StudentDetails /> */}
+      {/* <EditStudent/> */}
     </ThemeProvider>
   );
 }
