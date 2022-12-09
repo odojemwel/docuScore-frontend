@@ -1,11 +1,15 @@
-import { Box, Button, Grid, Paper, Stack, styled, TextField, Typography } from '@mui/material'
-import React from 'react'
+import { Box, Button, Paper, Stack, styled, TextField, Typography } from '@mui/material'
 import PageContainer from '../Components/PageContainer'
 
 const Register = () => {
   return (
     <PageContainer>
-      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+      <Box sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100%'
+      }}>
         <Paper
           elevation={6}
           sx={{
@@ -18,29 +22,25 @@ const Register = () => {
           }}>
           <Typography variant='h4' sx={{ fontWeight: '600' }}>Register</Typography>
           <Stack sx={{ width: '100%', marginY: '30px' }} spacing={3}>
-            <StyledTextField
-              size='small' color='secondary' label="Username" variant="outlined"
-              sx={{ width: '100%' }}
+            <TextField
+              size='small' color='secondary' label="Employee ID" variant="outlined"
+              sx={{ width: '100%', marginRight: '5px' }}
             />
-            <StyledTextField
+            <TextField
               size='small' color='secondary' label="Password" variant="outlined"
               type="password"
               sx={{ width: '100%' }}
             />
             <Box sx={{ display: 'flex', }}>
-              <StyledTextField
+              <TextField
                 size='small' color='secondary' label="First Name" variant="outlined"
                 sx={{ width: '100%', marginRight: '5px' }}
               />
-              <StyledTextField
+              <TextField
                 size='small' color='secondary' label="Last Name" variant="outlined"
                 sx={{ width: '100%', marginRight: '5px' }}
               />
             </Box>
-            <StyledTextField
-              size='small' color='secondary' label="Employee ID" variant="outlined"
-              sx={{ width: '100%', marginRight: '5px' }}
-            />
             <Button
               variant='contained' size='medium' color='secondary'
               sx={{ width: '100%' }}>

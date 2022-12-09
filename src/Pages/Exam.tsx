@@ -1,12 +1,14 @@
-import { Button, styled, Typography, Stack, Paper, Grid } from '@mui/material'
-import React from 'react'
-import PageContainer from '../Components/PageContainer'
+import { Button, Typography, Stack, Paper, Grid, Switch } from '@mui/material'
+import { useState } from 'react'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import { useNavigate } from 'react-router-dom';
 
-const Class = () => {
+const Exam = () => {
+  const [edit, setEdit] = useState(false);
+  const navigate = useNavigate();
   return (
-    <PageContainer logged_in>
+    <>
       <Box sx={{
         display: 'flex',
         justifyContent: 'center',
@@ -16,7 +18,7 @@ const Class = () => {
           width: "100%"
         }}
           spacing={4}>
-          <Typography variant='h5'>Exam Details</Typography>
+          <Typography variant='h5'>Edit Exam</Typography>
           <Paper
             elevation={6}
             sx={{
@@ -26,6 +28,15 @@ const Class = () => {
               flexDirection: 'column',
               alignItems: 'center'
             }}>
+            <Grid container justifyContent='end' alignItems={'center'}>
+              <Grid item >
+                <Switch color='secondary'
+                  onChange={() => (setEdit(!edit))} />
+              </Grid>
+              <Grid item >
+                <Typography>Edit Exam</Typography>
+              </Grid>
+            </Grid>
             <Stack width='100%' spacing={3} marginY='30px'>
               <Grid container>
                 <Grid item xs={3} display='flex' justifyContent='end' alignItems='center'>
@@ -33,50 +44,69 @@ const Class = () => {
                 </Grid>
                 <Grid item xs={9}>
                   <TextField sx={{ marginLeft: 1, width: '80%' }}
-                  InputProps={{
-                    readOnly: true,
-                  }}
                     id="outlined-password-input"
-                    multiline placeholder='Class Name'
-                    size='small' />
+                    multiline placeholder='Input Exam Number'
+                    size='small'
+                    inputProps={{
+                      readOnly: !edit,
+                    }} />
                 </Grid>
               </Grid>
               <Grid container>
                 <Grid item xs={3} display='flex' justifyContent='end' alignItems='center'>
-                  <Typography>Exam title</Typography>
+                  <Typography>Exam Title</Typography>
                 </Grid>
                 <Grid item xs={9}>
                   <TextField sx={{ marginLeft: 1, width: '80%' }}
-                  InputProps={{
-                    readOnly: true,
-                  }}
                     id="outlined-password-input"
-                    multiline placeholder='Year Level'
-                    size='small' />
+                    multiline placeholder='Input Exam Title'
+                    size='small'
+                    inputProps={{
+                      readOnly: !edit,
+                    }} />
                 </Grid>
               </Grid>
               <Grid container>
                 <Grid item xs={3} display='flex' justifyContent='end' alignItems='center'>
-                  <Typography>Number of items</Typography>
+                  <Typography>Total Items</Typography>
                 </Grid>
                 <Grid item xs={9}>
                   <TextField sx={{ marginLeft: 1, width: '80%' }}
-                  InputProps={{
-                    readOnly: true,
-                  }}
                     id="outlined-password-input"
-                    multiline placeholder='Section'
-                    size='small' />
-                </Grid>/**hello testing  */
+                    multiline placeholder='Input Total Items'
+                    size='small'
+                    inputProps={{
+                      readOnly: !edit,
+                    }} />
+                </Grid>
               </Grid>
-              
+              <Box display='flex' justifyContent='center'>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  disabled={!edit}
+                  sx={{
+                    marginX: '10px'
+                  }}>
+                  SAVE CHANGES
+                </Button>
+                <Button
+                  variant="outlined"
+                  color="secondary"
+                  onClick={() => navigate(-1)}
+                  sx={{
+                    marginX: '10px',
+                  }}>
+                  CANCEL
+                </Button>
+              </Box>
             </Stack>
           </Paper>
         </Stack>
       </Box >
-    </PageContainer >
+    </ >
   )
 }
 
 
-export default Class
+export default Exam

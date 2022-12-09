@@ -1,12 +1,11 @@
-import { Button, styled, Typography, Stack, Paper, Grid } from '@mui/material'
-import React from 'react'
-import PageContainer from '../Components/PageContainer'
+import { Button, Typography, Stack, Paper, Grid } from '@mui/material'
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
+import { useNavigate } from 'react-router-dom';
 
-const Class = () => {
+const StudentDetails = () => {
+  const navigate = useNavigate();
   return (
-    <PageContainer logged_in>
+    <>
       <Box sx={{
         display: 'flex',
         justifyContent: 'center',
@@ -27,7 +26,7 @@ const Class = () => {
               alignItems: 'center'
             }}>
             <Stack width='100%' spacing={3} marginY='30px'>
-                
+
               <Grid container>
                 <Grid item xs={3} display='flex' justifyContent='end' alignItems='center'>
                   <Typography>Class</Typography>
@@ -87,7 +86,8 @@ const Class = () => {
                   color="secondary"
                   sx={{
                     marginX: '10px'
-                  }}>
+                  }}
+                  onClick={() => navigate(-1)}>
                   CANCEL
                 </Button>
               </Box>
@@ -95,9 +95,9 @@ const Class = () => {
           </Paper>
         </Stack>
       </Box >
-    </PageContainer >
+    </ >
   )
 }
 
 
-export default Class
+export default StudentDetails

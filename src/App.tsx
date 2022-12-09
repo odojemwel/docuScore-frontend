@@ -1,18 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { createTheme } from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
 import Dashboard from './Pages/Dashboard';
-import SamplePage from './Pages/SamplePage';
-import TopNavBar from './Components/TopNavBar';
-import Login from './Pages/Login';
-import Register from './Pages/Register';
-import Class from './Pages/Class';
-import Editclass from './Pages/Editclass';
-import StudentDetails from './Pages/StudentDetails';
-import EditStudent from './Pages/EditStudent';
 import CreateStudent from './Pages/CreateStudent';
+import Profile from './Pages/Profile';
+import { Route, Routes } from 'react-router-dom';
+import Class from './Pages/Class';
+import CreateClass from './Pages/CreateClass';
+import EditClass from './Pages/EditClass';
+import About from './Pages/About';
+import Contact from './Pages/Contact';
+import PageContainer from './Components/PageContainer';
+import CreateExam from './Pages/CreateExam';
+import Student from './Pages/Student';
+import EditExam from './Pages/Exam';
 
 
 const theme = createTheme({
@@ -85,6 +86,13 @@ const theme = createTheme({
 
         }
       }
+    },
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          fontSize: '0.8em'
+        }
+      }
     }
   }
 });
@@ -94,15 +102,43 @@ const theme = createTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      {/* <Dashboard /> */}
-      {/* <Login /> */}
-      {/* <Register /> */}
-      {/* <Class /> */}
-      {/* <Editclass /> */}
-      {/* <ClassDetails /> */}
-     <CreateStudent />
-      {/* <StudentDetails /> */}
-      {/* <EditStudent/> */}
+      <PageContainer logged_in>
+        <Routes>
+          <Route path='/'
+            element={<Dashboard />}
+          />
+          <Route path='/class'
+            element={<Class />}
+          />
+          <Route path='/create_class'
+            element={<CreateClass />}
+          />
+          <Route path='/edit_class'
+            element={<EditClass />}
+          />
+          <Route path='/create_student'
+            element={<CreateStudent />}
+          />
+          <Route path='/student'
+            element={<Student />}
+          />
+          <Route path='/create_exam'
+            element={<CreateExam />}
+          />
+          <Route path='/exam'
+            element={<EditExam />}
+          />
+          <Route path='/profile'
+            element={<Profile />}
+          />
+          <Route path='/about_us'
+            element={<About />}
+          />
+          <Route path='/contact_us'
+            element={<Contact />}
+          />
+        </Routes>
+      </PageContainer>
     </ThemeProvider>
   );
 }

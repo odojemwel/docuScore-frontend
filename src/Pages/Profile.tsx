@@ -1,9 +1,11 @@
-import { Button, Typography, Stack, Paper, Grid } from '@mui/material'
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import { useNavigate } from 'react-router-dom';
+import { Box, Button, Grid, Paper, Stack, Switch, TextField, Typography } from '@mui/material'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-const CreateStudent = () => {
+
+
+const Profile = () => {
+  const [edit, setEdit] = useState(false)
   const navigate = useNavigate();
   return (
     <>
@@ -16,7 +18,7 @@ const CreateStudent = () => {
           width: "100%"
         }}
           spacing={4}>
-          <Typography variant='h5'>Create Student</Typography>
+          <Typography variant='h5'>Profile</Typography>
           <Paper
             elevation={6}
             sx={{
@@ -26,76 +28,78 @@ const CreateStudent = () => {
               flexDirection: 'column',
               alignItems: 'center'
             }}>
+            <Grid container justifyContent='end' alignItems={'center'}>
+              <Grid item >
+                <Switch color='secondary'
+                  onChange={() => (setEdit(!edit))} />
+              </Grid>
+              <Grid item >
+                <Typography>Edit Profile</Typography>
+              </Grid>
+            </Grid>
             <Stack width='100%' spacing={3} marginY='30px'>
-
               <Grid container>
                 <Grid item xs={3} display='flex' justifyContent='end' alignItems='center'>
-                  <Typography>Class</Typography>
+                  <Typography>Employee ID</Typography>
                 </Grid>
                 <Grid item xs={9}>
                   <TextField sx={{ marginLeft: 1, width: '80%' }}
-                    id="outlined-password-input"
-                    multiline placeholder='Auto-populated field'
-                    size='small' />
+                    multiline placeholder='Employee ID'
+                    size='small'
+                    inputProps={{
+                      readOnly: !edit,
+                    }}
+                  />
                 </Grid>
               </Grid>
-
               <Grid container>
                 <Grid item xs={3} display='flex' justifyContent='end' alignItems='center'>
-                  <Typography>School ID</Typography>
+                  <Typography>Password</Typography>
                 </Grid>
                 <Grid item xs={9}>
                   <TextField sx={{ marginLeft: 1, width: '80%' }}
-                    id="outlined-password-input"
-                    multiline placeholder='Input School ID'
-                    size='small' />
+                    multiline placeholder='Password'
+                    size='small'
+                    inputProps={{
+                      readOnly: !edit,
+                    }} />
                 </Grid>
               </Grid>
-
-              <Grid container>
-                <Grid item xs={3} display='flex' justifyContent='end' alignItems='center'>
-                  <Typography>Class Number</Typography>
-                </Grid>
-                <Grid item xs={9}>
-                  <TextField sx={{ marginLeft: 1, width: '80%' }}
-                    id="outlined-password-input"
-                    multiline placeholder='Input Class Number'
-                    size='small' />
-                </Grid>
-              </Grid>
-
               <Grid container>
                 <Grid item xs={3} display='flex' justifyContent='end' alignItems='center'>
                   <Typography>First Name</Typography>
                 </Grid>
                 <Grid item xs={9}>
                   <TextField sx={{ marginLeft: 1, width: '80%' }}
-                    id="outlined-password-input"
-                    multiline placeholder='Input First Name'
-                    size='small' />
+                    multiline placeholder='First Name'
+                    size='small'
+                    inputProps={{
+                      readOnly: !edit,
+                    }} />
                 </Grid>
               </Grid>
-
               <Grid container>
                 <Grid item xs={3} display='flex' justifyContent='end' alignItems='center'>
                   <Typography>Last Name</Typography>
                 </Grid>
                 <Grid item xs={9}>
                   <TextField sx={{ marginLeft: 1, width: '80%' }}
-                    id="outlined-password-input"
-                    multiline placeholder='Input Last Name'
-                    size='small' />
+                    multiline placeholder='Last Name'
+                    size='small'
+                    inputProps={{
+                      readOnly: !edit,
+                    }} />
                 </Grid>
               </Grid>
-
               <Box display='flex' justifyContent='center'>
                 <Button
                   variant="contained"
                   color="secondary"
+                  disabled={!edit}
                   sx={{
                     marginX: '10px'
                   }}>
-                  CREATE STUDENT
+                  Save
                 </Button>
                 <Button
                   variant="outlined"
@@ -104,16 +108,15 @@ const CreateStudent = () => {
                   sx={{
                     marginX: '10px'
                   }}>
-                  CANCEL
+                  Cancel
                 </Button>
               </Box>
             </Stack>
           </Paper>
         </Stack>
       </Box >
-    </ >
+    </>
   )
 }
 
-
-export default CreateStudent
+export default Profile

@@ -1,12 +1,19 @@
-import { Button, styled, Typography, Stack, Paper, Grid } from '@mui/material'
-import React from 'react'
-import PageContainer from '../Components/PageContainer'
+import { Button, Typography, Stack, Paper, Grid } from '@mui/material'
+import { useContext, useEffect } from 'react'
+import { PageContainerContext } from '../Components/PageContainer'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import { useNavigate } from 'react-router-dom';
 
-const Class = () => {
+const CreateClass = () => {
+  const NavContext = useContext(PageContainerContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    NavContext?.setSelectedIndex(2)
+  }, [])
   return (
-    <PageContainer logged_in>
+    <>
       <Box sx={{
         display: 'flex',
         justifyContent: 'center',
@@ -16,7 +23,7 @@ const Class = () => {
           width: "100%"
         }}
           spacing={4}>
-          <Typography variant='h5'>Edit Exam</Typography>
+          <Typography variant='h5'>Create Class</Typography>
           <Paper
             elevation={6}
             sx={{
@@ -29,7 +36,7 @@ const Class = () => {
             <Stack width='100%' spacing={3} marginY='30px'>
               <Grid container>
                 <Grid item xs={3} display='flex' justifyContent='end' alignItems='center'>
-                  <Typography>Exam Number</Typography>
+                  <Typography>Class Name</Typography>
                 </Grid>
                 <Grid item xs={9}>
                   <TextField sx={{ marginLeft: 1, width: '80%' }}
@@ -40,7 +47,7 @@ const Class = () => {
               </Grid>
               <Grid container>
                 <Grid item xs={3} display='flex' justifyContent='end' alignItems='center'>
-                  <Typography>Exam title</Typography>
+                  <Typography>Year Level</Typography>
                 </Grid>
                 <Grid item xs={9}>
                   <TextField sx={{ marginLeft: 1, width: '80%' }}
@@ -51,7 +58,7 @@ const Class = () => {
               </Grid>
               <Grid container>
                 <Grid item xs={3} display='flex' justifyContent='end' alignItems='center'>
-                  <Typography>Number of items</Typography>
+                  <Typography>Section</Typography>
                 </Grid>
                 <Grid item xs={9}>
                   <TextField sx={{ marginLeft: 1, width: '80%' }}
@@ -60,32 +67,32 @@ const Class = () => {
                     size='small' />
                 </Grid>
               </Grid>
-              <Box display='flex' justifyContent='right'>
+              <Box display='flex' justifyContent='center'>
                 <Button
                   variant="contained"
                   color="secondary"
                   sx={{
                     marginX: '10px'
                   }}>
-                  SAVE CHANGES
+                  Create Class
                 </Button>
                 <Button
                   variant="outlined"
                   color="secondary"
                   sx={{
-                    marginX: '10px',
-                    marginRight: 11
-                  }}>
-                  CANCEL
+                    marginX: '10px'
+                  }}
+                  onClick={() => navigate(-1)}>
+                  Cancel
                 </Button>
               </Box>
             </Stack>
           </Paper>
         </Stack>
       </Box >
-    </PageContainer >
+    </ >
   )
-}/**helo testing */
+}
 
 
-export default Class
+export default CreateClass

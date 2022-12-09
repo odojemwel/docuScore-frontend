@@ -1,13 +1,18 @@
 import { SearchOutlined } from '@mui/icons-material'
-import { Box, Button, Divider, FormControl, Grid, IconButton, InputAdornment, TextField, Toolbar, Typography } from '@mui/material'
+import { Box, Button, Divider, FormControl, Grid, IconButton, InputAdornment, TextField, Typography } from '@mui/material'
+import { useContext, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import ClassCard, { CreateClassCard, InactiveClass } from '../Components/ClassCard'
-import Footer from '../Components/Footer'
-import Navigation from '../Components/Navigation'
-import PageContainer from '../Components/PageContainer'
+import { PageContainerContext } from '../Components/PageContainer'
 
 const Dashboard = () => {
+  const NavContext = useContext(PageContainerContext);
+  const navigate = useNavigate();
+  useEffect(() => {
+    NavContext?.setSelectedIndex(1)
+  }, [])
   return (
-    <PageContainer logged_in>
+    <>
       <Box sx={{ px: '100px' }}>
         <Box sx={{
           display: 'flex',
@@ -39,7 +44,8 @@ const Dashboard = () => {
               sx={{ marginRight: '10px' }} />
           </FormControl>
           <Button variant='contained' size='small' color='secondary'
-            sx={{ marginLeft: '10px' }}>
+            sx={{ marginLeft: '10px' }}
+            onClick={() => navigate("create_class")}>
             <Typography variant='button'>Create Class</Typography>
           </Button>
         </Box>
@@ -93,7 +99,7 @@ const Dashboard = () => {
           </Grid>
         </Grid>
       </Box>
-    </PageContainer>
+    </>
   )
 }
 

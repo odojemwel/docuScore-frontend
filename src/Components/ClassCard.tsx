@@ -1,16 +1,21 @@
 import { EditRounded } from '@mui/icons-material'
 import { Avatar, Box, Card, CardHeader, IconButton, Typography } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 
 const ClassCard = () => {
+  const navigate = useNavigate()
   return (
     <Card
       style={{ backgroundColor: '#B1FAFF' }}
       sx={{ border: 2, width: 'auto', height: 150, borderColor: '#1CA1FC', cursor: 'pointer' }}
-      onClick={() => (alert("hello"))}>
+      onClick={() => (navigate("/class"))}>
       <CardHeader title={"SCIENCE - 8"}
         action={
           <Avatar sx={{ backgroundColor: '#ffffff' }}>
-            <IconButton sx={{ color: '#000000' }}>
+            <IconButton sx={{ color: '#000000' }} onClick={(e) => {
+              e.stopPropagation();
+              navigate("/edit_class")
+            }}>
               <EditRounded />
             </IconButton>
           </Avatar>
@@ -49,6 +54,7 @@ export const InactiveClass = () => {
 
 
 export const CreateClassCard = () => {
+  const navigate = useNavigate()
   return (
     <Card
       sx={{
@@ -56,7 +62,7 @@ export const CreateClassCard = () => {
         display: 'flex', justifyContent: 'center', alignItems: 'center',
         borderStyle: 'dashed'
       }}
-      onClick={() => (alert("hello"))}>
+      onClick={() => navigate("/create_class")}>
       <CardHeader title={"+Create Class"} sx={{ color: '#8E8E8E' }}>
       </CardHeader>
     </Card>

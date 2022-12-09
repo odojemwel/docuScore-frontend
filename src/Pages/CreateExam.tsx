@@ -1,12 +1,12 @@
-import { Button, styled, Typography, Stack, Paper, Grid } from '@mui/material'
-import React from 'react'
-import PageContainer from '../Components/PageContainer'
+import { Button, Typography, Stack, Paper, Grid } from '@mui/material'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import { useNavigate } from 'react-router-dom';
 
-const Class = () => {
+const CreateExam = () => {
+  const navigate = useNavigate();
   return (
-    <PageContainer logged_in>
+    <>
       <Box sx={{
         display: 'flex',
         justifyContent: 'center',
@@ -75,7 +75,8 @@ const Class = () => {
                   sx={{
                     marginX: '10px',
                     marginRight: 11
-                  }}>
+                  }}
+                  onClick={() => navigate(-1)}>
                   CANCEL
                 </Button>
               </Box>
@@ -83,9 +84,9 @@ const Class = () => {
           </Paper>
         </Stack>
       </Box >
-    </PageContainer >
+    </ >
   )/**helo testsing */
 }
 
 
-export default Class
+export default CreateExam

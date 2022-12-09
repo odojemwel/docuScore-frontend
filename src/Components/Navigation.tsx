@@ -19,8 +19,8 @@ export const NavigationContext = createContext<{
 } | null>(null);
 
 export default function Navigation() {
-  const [selectedIndex, setSelectedIndex] = useState(-1);
-  const [tab_value, setTab_value] = useState(-1);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [tab_value, setTab_value] = useState(0);
   return (
     <NavigationContext.Provider value={{
       selectedIndex,

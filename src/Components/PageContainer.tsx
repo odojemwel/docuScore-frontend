@@ -7,8 +7,9 @@ import TopNavBar from './TopNavBar';
 import { createContext, Dispatch, useState } from 'react';
 import { Box, CssBaseline, Grid, Toolbar, Typography } from '@mui/material';
 import Footer from './Footer';
+import { Link } from 'react-router-dom';
 
-let drawerWidth = 100;
+let drawerWidth = 101;
 
 export interface PageContainerProps {
   children: React.ReactNode,
@@ -24,7 +25,7 @@ export const PageContainerContext = createContext<{
 } | null>(null);
 
 export default function PageContainer(props: PageContainerProps) {
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(1);
   const [tab_value, setTab_value] = useState(0);
   const [logged_in, setLogged_in] = useState(props.logged_in!)
   return (
@@ -63,12 +64,16 @@ export default function PageContainer(props: PageContainerProps) {
                 anchor="left"
               >
                 <List>
-                  <ListItem disableGutters disablePadding>
-                    <HomeButton />
-                  </ListItem>
-                  <ListItem disablePadding disableGutters>
-                    <CreateClassButton />
-                  </ListItem>
+                  <Link style={{ textDecoration: 'none' }} to={"/"}>
+                    <ListItem disableGutters disablePadding>
+                      <HomeButton />
+                    </ListItem>
+                  </Link>
+                  <Link style={{ textDecoration: 'none' }} to={"/create_class"}>
+                    <ListItem disablePadding disableGutters>
+                      <CreateClassButton />
+                    </ListItem>
+                  </Link>
                   <ListItem disablePadding disableGutters>
                     <ScanButton />
                   </ListItem>
