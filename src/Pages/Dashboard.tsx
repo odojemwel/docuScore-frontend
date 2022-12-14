@@ -4,16 +4,33 @@ import { useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ClassCard, { CreateClassCard, InactiveClass } from '../Components/ClassCard'
 import { PageContainerContext } from '../Components/PageContainer'
+import { DashboardContext } from '../Helpers/Context/DashboardContext'
+import TeacherService from '../Helpers/Services/TeacherService'
 
 const Dashboard = () => {
   const NavContext = useContext(PageContainerContext);
   const navigate = useNavigate();
+  const DashboardProvider = useContext(DashboardContext);
+
   useEffect(() => {
-    NavContext?.setSelectedIndex(1)
+    NavContext?.setSelectedIndex(1);
+    TeacherService.getActiveClasses()
+      .then((response) => {
+        DashboardProvider?.setClasses(response.data)
+      })
+      .catch((error) => console.log(error));
+
+    TeacherService.getInactiveClasses()
+      .then((response) => {
+        DashboardProvider?.setInactiveClasses(response.data);
+      })
+      .catch((error) => console.log(error));
   }, [])
+
+
   return (
     <>
-      <Box sx={{ px: '100px' }}>
+      <Box sx={{ flexGrow: 1, px: '100px' }}>
         <Box sx={{
           display: 'flex',
           justifyContent: 'flex-end',
@@ -50,18 +67,16 @@ const Dashboard = () => {
           </Button>
         </Box>
         <Grid container columnSpacing='50px' rowSpacing='30px'>
-          <Grid item xs={4}>
-            <ClassCard />
-          </Grid>
-          <Grid item xs={4}>
-            <ClassCard />
-          </Grid>
-          <Grid item xs={4}>
-            <ClassCard />
-          </Grid>
-          <Grid item xs={4}>
-            <ClassCard />
-          </Grid>
+          {
+            DashboardProvider?.classes.map(class_ => (
+              <Grid item xs={4} key={class_.classId}>
+                <ClassCard subject={class_.subject}
+                  section={class_.section}
+                  yearLevel={class_.yearLevel}
+                  classId={class_.classId} />
+              </Grid>
+            ))
+          }
           <Grid item xs={4}>
             <CreateClassCard />
           </Grid>
@@ -82,21 +97,13 @@ const Dashboard = () => {
           </Typography>
         </Box>
         <Grid container columnSpacing='30px' rowSpacing='30px'>
-          <Grid item xs={3}>
-            <InactiveClass />
-          </Grid>
-          <Grid item xs={3}>
-            <InactiveClass />
-          </Grid>
-          <Grid item xs={3}>
-            <InactiveClass />
-          </Grid>
-          <Grid item xs={3}>
-            <InactiveClass />
-          </Grid>
-          <Grid item xs={3}>
-            <InactiveClass />
-          </Grid>
+          {
+            DashboardProvider?.inactiveClasses.map(class_ => (
+              <Grid item xs={3} key={class_.classId}>
+                <InactiveClass className={class_.subject} />
+              </Grid>
+            ))
+          }
         </Grid>
       </Box>
     </>

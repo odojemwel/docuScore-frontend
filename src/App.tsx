@@ -14,6 +14,12 @@ import PageContainer from './Components/PageContainer';
 import CreateExam from './Pages/CreateExam';
 import Student from './Pages/Student';
 import EditExam from './Pages/Exam';
+import DashboardProvider from './Helpers/Context/DashboardContext';
+import Register from './Pages/Register';
+import Login from './Pages/Login';
+import { LoginContext } from './Helpers/Context/LoginContext';
+import { useContext } from 'react';
+import ClassProvider from './Helpers/Context/ClassContext';
 
 
 const theme = createTheme({
@@ -100,45 +106,73 @@ const theme = createTheme({
 
 
 function App() {
+  const LoginProvider = useContext(LoginContext);
   return (
     <ThemeProvider theme={theme}>
-      <PageContainer logged_in>
-        <Routes>
-          <Route path='/'
-            element={<Dashboard />}
-          />
-          <Route path='/class'
-            element={<Class />}
-          />
-          <Route path='/create_class'
-            element={<CreateClass />}
-          />
-          <Route path='/edit_class'
-            element={<EditClass />}
-          />
-          <Route path='/create_student'
-            element={<CreateStudent />}
-          />
-          <Route path='/student'
-            element={<Student />}
-          />
-          <Route path='/create_exam'
-            element={<CreateExam />}
-          />
-          <Route path='/exam'
-            element={<EditExam />}
-          />
-          <Route path='/profile'
-            element={<Profile />}
-          />
-          <Route path='/about_us'
-            element={<About />}
-          />
-          <Route path='/contact_us'
-            element={<Contact />}
-          />
-        </Routes>
-      </PageContainer>
+      <DashboardProvider>
+        <ClassProvider>
+          <PageContainer logged_in>
+            {
+              LoginProvider?.loggedIn.teacherId ?
+                <Routes>
+                  <Route path='/'
+                    element={<Dashboard />}
+                  />
+                  <Route path='/class/:classId'
+                    element={<Class />
+                    }
+                  />
+                  <Route path='/edit_class'
+                    element={<EditClass />}
+                  />
+
+                  <Route path='/create_class'
+                    element={<CreateClass />
+                    }
+                  />
+                  <Route path='/create_student'
+                    element={<CreateStudent />}
+                  />
+                  <Route path='/student'
+                    element={<Student />}
+                  />
+                  <Route path='/create_exam'
+                    element={<CreateExam />}
+                  />
+                  <Route path='/exam'
+                    element={<EditExam />}
+                  />
+                  <Route path='/profile'
+                    element={<Profile />}
+                  />
+                  <Route path='/about_us'
+                    element={<About />}
+                  />
+                  <Route path='/contact_us'
+                    element={<Contact />}
+                  />
+                  <Route path="*" element={<>404 Page Not Found</>} />
+                </Routes>
+                :
+                <Routes>
+                  <Route path="/"
+                    element={<Login />}
+                  />
+                  <Route path='/about_us'
+                    element={<About />}
+                  />
+                  <Route path='/contact_us'
+                    element={<Contact />}
+                  />
+                  <Route path='/register'
+                    element={<Register />}
+                  />
+                  <Route path="*" element={<>404 Page Not Found</>} />
+                </Routes>
+            }
+          </PageContainer>
+        </ClassProvider>
+      </DashboardProvider>
     </ThemeProvider>
   );
 }

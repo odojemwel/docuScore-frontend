@@ -1,11 +1,12 @@
 import { AccountCircleTwoTone } from '@mui/icons-material'
-import { Box, Button, IconButton, Menu, MenuItem, Tab, Tabs, Toolbar, Typography } from '@mui/material'
+import { IconButton, Menu, MenuItem, Tab, Tabs, Toolbar, Typography } from '@mui/material'
 import { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
+import { LoginContext, teacher } from '../Helpers/Context/LoginContext';
 import { PageContainerContext } from './PageContainer';
 
 const TopNavBar = () => {
-
+  const LoginProvider = useContext(LoginContext);
   const NavContext = useContext(PageContainerContext);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -17,6 +18,12 @@ const TopNavBar = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const logout = () => {
+    localStorage.clear();
+    LoginProvider?.setLoggedIn({} as teacher);
+    navigate("/");
+  }
 
   return (
     <Toolbar>
@@ -44,10 +51,10 @@ const TopNavBar = () => {
           label="Contact Us" disableTouchRipple disableRipple component={Link} to={"/contact_us"} />
       </Tabs>
       {
-        NavContext?.logged_in ?
+        LoginProvider?.loggedIn.teacherId ?
           <>
             <Typography sx={{ marginX: '10px' }} >
-              Bilbo Baggins
+              {LoginProvider.loggedIn.firstName} {LoginProvider.loggedIn.lastName}
             </Typography>
             <IconButton sx={{ marginX: "10px" }}
               color="secondary"
@@ -72,7 +79,10 @@ const TopNavBar = () => {
           }}
         >
           Profile</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem onClick={() => {
+          handleClose();
+          logout();
+        }}>Logout</MenuItem>
       </Menu>
 
     </Toolbar>

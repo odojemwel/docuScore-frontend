@@ -2,20 +2,33 @@ import { EditRounded } from '@mui/icons-material'
 import { Avatar, Box, Card, CardHeader, IconButton, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
-const ClassCard = () => {
+
+interface ClassCardContext {
+  classId: number,
+  subject: String,
+  section: String,
+  yearLevel: number
+}
+
+
+const ClassCard = (props: ClassCardContext) => {
   const navigate = useNavigate()
   return (
     <Card
       style={{ backgroundColor: '#B1FAFF' }}
       sx={{ border: 2, width: 'auto', height: 150, borderColor: '#1CA1FC', cursor: 'pointer' }}
-      onClick={() => (navigate("/class"))}>
-      <CardHeader title={"SCIENCE - 8"}
+      onClick={() => (navigate(`/class/${props.classId}`))}>
+      <CardHeader title={`${props.subject}`}
         action={
           <Avatar sx={{ backgroundColor: '#ffffff' }}>
-            <IconButton sx={{ color: '#000000' }} onClick={(e) => {
-              e.stopPropagation();
-              navigate("/edit_class")
-            }}>
+            <IconButton sx={{ color: '#000000' }}
+              // component={Link}
+              // to="/edit_class"
+              onClick={(e) => {
+                e.stopPropagation();
+                navigate("/edit_class");
+              }}
+            >
               <EditRounded />
             </IconButton>
           </Avatar>
@@ -23,8 +36,8 @@ const ClassCard = () => {
         }
         subheader={
           <Box sx={{ marginTop: 5 }}>
-            <Typography>Year Level: Grade 8 </Typography>
-            <Typography>Section: Hobbits</Typography>
+            <Typography>Year Level: {props.yearLevel} </Typography>
+            <Typography>Section: {props.section}</Typography>
           </Box>
         }>
       </CardHeader>
@@ -36,7 +49,7 @@ export default ClassCard
 
 
 
-export const InactiveClass = () => {
+export const InactiveClass = (props: { className: String }) => {
   return (
     <Card
       sx={{
@@ -45,7 +58,7 @@ export const InactiveClass = () => {
         cursor: 'pointer'
       }}>
       <CardHeader
-        title={"SCIENCE - 8"}>
+        title={props.className}>
       </CardHeader>
     </Card>
   )

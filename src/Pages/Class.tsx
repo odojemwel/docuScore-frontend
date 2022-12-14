@@ -1,10 +1,150 @@
 import { Box, Button, Menu, MenuItem, Stack, TextField, Typography } from '@mui/material'
-import { DataGrid, GridColumnHeaderParams, GridColumns, GridRenderCellParams, GridRowsProp } from '@mui/x-data-grid'
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { DataGrid, GridColumnHeaderParams, GridColumns, GridRenderCellParams, GridRowsProp, GridValidRowModel } from '@mui/x-data-grid'
+import React, { useContext, useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import { ClassContext, class_, exam, score, student } from '../Helpers/Context/ClassContext'
+import ClassService from '../Helpers/Services/ClassService'
+import ExamService from '../Helpers/Services/ExamService'
+import ScoreService from '../Helpers/Services/ScoreService'
+import StudentService from '../Helpers/Services/StudentService'
+
 
 const Class = () => {
+  const ClassProvider = useContext(ClassContext);
   const navigate = useNavigate();
+  const { classId } = useParams();
+  const [students, setStudents] = useState<any[]>([])
+  let scores: score[][] = [[]];
+
+  interface GridColTypeDef {
+    field: String,
+    headerName: String,
+    type: String,
+    width: number,
+    sortable: boolean,
+    renderCell: any,
+    renderHeader?: any,
+  }
+
+  const student: GridColTypeDef[] | undefined = [{
+    field: 'fullName',
+    headerName: 'Name',
+    type: 'string',
+    width: 150,
+    sortable: false,
+    renderCell: (cellValue: GridRenderCellParams) => {
+      return (
+        <Name cellValue={cellValue} />
+
+      )
+    }
+  }]
+
+  const exams: GridColTypeDef[] | undefined = ClassProvider?.exams.map((exam) => {
+    return {
+      field: exam.examId + "",
+      headerName: exam.examTitle,
+      type: "number",
+      width: 100,
+      sortable: false,
+      renderCell: (cellValue: GridRenderCellParams) => {
+        return (
+          <Score cellValue={cellValue} />
+        );
+      },
+      renderHeader: (cellValue: GridColumnHeaderParams) => {
+        return (
+          <Exam cellValue={cellValue} />
+        );
+
+      }
+    }
+  })
+
+  const columns: GridColTypeDef[] | undefined = student.concat(exams!);
+  const rows: GridRowsProp = students as GridValidRowModel[];
+
+
+  useEffect(() => {
+    ClassProvider?.setScores([[]])
+    ClassProvider?.setStudents([])
+    ClassProvider?.setExams([])
+    ClassService.getClass(parseInt(classId! + ""))
+      .then((response) => {
+        const class_: class_ = response.data;
+        ClassProvider?.setClass_({
+          classId: class_.classId,
+          subject: class_.subject,
+          section: class_.section,
+          yearLevel: class_.yearLevel,
+          deleted: class_.deleted,
+        });
+      })
+      .catch((error) => console.log(error));
+
+    StudentService.getStudentByClass(parseInt(classId! + ""))
+      .then((response) => {
+        const students: student[] = Object.values(response.data)
+        ClassProvider?.setStudents(students)
+      })
+      .catch((error) => console.log(error));
+
+    ExamService.getExamByClass(parseInt(classId! + ""))
+      .then(response => {
+        const exams: exam[] = Object.values(response.data);
+        ClassProvider?.setExams(exams);
+      })
+      .catch(error => console.log(error))
+
+  }, [])
+
+  useEffect(() => {
+    for (let i = 0; i < ClassProvider?.students.length!; i++) {
+      ScoreService.getScoreByStudent(ClassProvider?.students[i].studentId!)
+        .then((response) => {
+          const grade: score[] = Object.values(response.data);
+          console.log("after api call" + ClassProvider?.students[i].studentId!)
+          console.log(grade);
+          if (i === 0) {
+            scores = [grade];
+          } else {
+            scores.push(grade);
+          }
+          console.log('scores')
+          console.log(scores)
+          if (i === ClassProvider?.students.length! - 1) {
+            ClassProvider?.setScores(scores);
+          }
+        })
+    }
+
+  }, [ClassProvider?.students])
+
+  useEffect(() => {
+    console.log("before assignment")
+    console.log(ClassProvider?.scores)
+    const stud = ClassProvider?.students.map((student) => {
+      let temp = {
+        studentId: student.studentId,
+        studSchoolId: student.studSchoolId,
+        classNumber: student.classNumber,
+        fullName: `${student.firstName} ${student.lastName}`,
+      };
+      ClassProvider.scores.map((scores) => {
+        scores.map((score) => {
+          if (student.studentId === score.student.studentId) {
+            temp = { ...temp, [`${score.exam.examId}`]: score.value + "" }
+          }
+        })
+      })
+      console.log("after assignment")
+      console.log(temp);
+      return temp;
+    })
+    setStudents(stud!);
+  }, [ClassProvider?.scores])
+
+
   return (
     <>
       <Box sx={{ paddingX: '100px', width: '100%', height: '100%' }}>
@@ -23,7 +163,7 @@ const Class = () => {
             <TextField
               id="standard-disabled"
               label="Subject"
-              defaultValue="Science"
+              value={`${ClassProvider?.class_.subject}`}
               variant="filled"
               size='small'
               sx={{ marginX: '5px' }}
@@ -34,7 +174,7 @@ const Class = () => {
             <TextField
               id="standard-disabled"
               label="Year level"
-              defaultValue="8"
+              value={`${ClassProvider?.class_.yearLevel}`}
               variant="filled"
               size='small'
               sx={{ marginX: '5px' }}
@@ -45,7 +185,7 @@ const Class = () => {
             <TextField
               id="standard-disabled"
               label="Section"
-              defaultValue="Hobbits"
+              value={`${ClassProvider?.class_.section}`}
               variant="filled"
               size='small'
               sx={{ marginX: '5px' }}
@@ -64,8 +204,10 @@ const Class = () => {
           </Box>
 
           <DataGrid
-            columns={columns}
+            columns={columns as GridColumns<GridValidRowModel>}
             rows={rows}
+            getRowId={(row) => row.studentId}
+            disableColumnMenu
           />
           <Stack direction={'row'} spacing={2}>
             <Button variant='contained'
@@ -80,68 +222,12 @@ const Class = () => {
             >Add Exam</Button>
           </Stack>
         </Stack>
-
       </Box>
     </>
   )
 }
 
 export default Class
-
-
-
-const columns: GridColumns = [
-  {
-    field: 'name',
-    headerName: 'Name',
-    type: 'string',
-    width: 150,
-    sortable: false,
-    renderCell: (cellValue) => {
-      return (
-        <Name cellValue={cellValue} />
-      );
-    }
-  },
-  {
-    field: 'examTitle',
-    headerName: 'Exam 1',
-    type: 'string',
-    width: 100,
-    sortable: false,
-    renderCell: (cellValue) => {
-      return (
-        <Score cellValue={cellValue} />
-      );
-    },
-    renderHeader: (cellValue) => {
-      return (
-        <Exam cellValue={cellValue} />
-      );
-
-    }
-  },
-]
-
-const rows: GridRowsProp = [
-  {
-    id: 1,
-    name: "Jemwel Odo",
-    examTitle: "10",
-  },
-  {
-    id: 2,
-    name: "Jemwel Odo",
-    examTitle: "9",
-  },
-  {
-    id: 3,
-    name: "Jemwel Odo",
-    examTitle: "8",
-  }
-]
-
-
 
 
 export const Name = (props: { cellValue: GridRenderCellParams }) => {
@@ -160,6 +246,7 @@ export const Name = (props: { cellValue: GridRenderCellParams }) => {
     <Box minWidth={'100 %'} sx={{ cursor: 'pointer' }} >
       <Box onClick={handleClick}>
         {props.cellValue.value}
+        {props.cellValue.id}
       </Box>
       <Menu
         anchorEl={anchorEl}
@@ -178,7 +265,6 @@ export const Name = (props: { cellValue: GridRenderCellParams }) => {
     </Box>
   );
 }
-
 
 export const Score = (props: { cellValue: GridRenderCellParams }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);

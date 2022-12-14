@@ -4,10 +4,11 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import HomeButton, { CreateClassButton, ExportButton, ScanButton } from './SideNavButtons';
 import TopNavBar from './TopNavBar';
-import { createContext, Dispatch, useState } from 'react';
-import { Box, CssBaseline, Grid, Toolbar, Typography } from '@mui/material';
+import { createContext, Dispatch, useContext, useState } from 'react';
+import { Box, CssBaseline, Toolbar } from '@mui/material';
 import Footer from './Footer';
 import { Link } from 'react-router-dom';
+import { LoginContext } from '../Helpers/Context/LoginContext';
 
 let drawerWidth = 101;
 
@@ -25,6 +26,7 @@ export const PageContainerContext = createContext<{
 } | null>(null);
 
 export default function PageContainer(props: PageContainerProps) {
+  const LoginProvider = useContext(LoginContext);
   const [selectedIndex, setSelectedIndex] = useState(1);
   const [tab_value, setTab_value] = useState(0);
   const [logged_in, setLogged_in] = useState(props.logged_in!)
@@ -42,14 +44,14 @@ export default function PageContainer(props: PageContainerProps) {
           <AppBar
             position="fixed"
             sx={{
-              width: `calc(100% - ${props.logged_in ? drawerWidth : 0}px)`,
-              ml: `${props.logged_in ? drawerWidth : 0}px`
+              width: `calc(100% - ${LoginProvider?.loggedIn.teacherId ? drawerWidth : 0}px)`,
+              ml: `${LoginProvider?.loggedIn.teacherId ? drawerWidth : 0}px`
             }}
           >
             <TopNavBar />
           </AppBar>
           {
-            props.logged_in ?
+            LoginProvider?.loggedIn.teacherId ?
               <Drawer
                 sx={{
                   width: drawerWidth,
@@ -89,7 +91,7 @@ export default function PageContainer(props: PageContainerProps) {
         <Box component="main"
           sx={{ flexGrow: 1, bgcolor: 'background.default', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
           <Toolbar />
-          <Box sx={{ px: '100px', flexGrow: 1, padding: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} >
+          <Box sx={{ px: '100px', flexGrow: 1, py: '30px', display: 'flex', justifyContent: 'center' }} >
             {props.children}
           </Box>
           <Footer />
