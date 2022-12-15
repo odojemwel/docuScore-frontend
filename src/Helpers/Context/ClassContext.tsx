@@ -1,28 +1,28 @@
 import React, { createContext, Dispatch, useState } from 'react'
 
 export type class_ = {
-  classId: number,
+  classId?: number,
   subject: String,
   section: String,
   yearLevel: number,
-  deleted: false | boolean,
+  deleted?: false | boolean,
 }
 
 export type student = {
-  studentId: number,
+  studentId?: number,
   studSchoolId: String,
   classNumber: number,
   firstName: String,
   lastName: String,
-  deleted: false | boolean,
+  deleted?: false | boolean,
 }
 
 export type exam = {
-  examId: number,
+  examId?: number,
   examNo: number,
   examTitle: String,
   totalItems: number,
-  deleted: false | boolean,
+  deleted?: false | boolean,
 }
 
 export type score = {

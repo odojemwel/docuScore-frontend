@@ -1,7 +1,6 @@
-import { Alert, Box, Button, Paper, Snackbar, Stack, styled, TextField, Typography } from '@mui/material'
+import { Alert, Box, Button, Paper, Snackbar, Stack, TextField, Typography } from '@mui/material'
 import { FormEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { teacher } from '../Helpers/Context/LoginContext';
 import TeacherService from '../Helpers/Services/TeacherService';
 
 const Register = () => {
@@ -9,6 +8,7 @@ const Register = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
+  const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
 
   const handleSubmit = (e: FormEvent) => {
@@ -20,6 +20,7 @@ const Register = () => {
         .then((response) => {
           const teacher = response.data;
           if (teacher.teacherId) {
+            setSuccess(true)
             setEmployeeID("");
             setFirstName("");
             setLastName("");
@@ -33,6 +34,16 @@ const Register = () => {
 
   return (
     <>
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        open={success}
+        onClose={() => setSuccess(false)}
+        autoHideDuration={2000}
+      >
+        <Alert severity='success' onClose={() => setSuccess(false)} variant="standard">
+          Account Created Successfully
+        </Alert>
+      </Snackbar>
       <Snackbar
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={error}

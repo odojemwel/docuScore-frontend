@@ -103,15 +103,11 @@ const Class = () => {
       ScoreService.getScoreByStudent(ClassProvider?.students[i].studentId!)
         .then((response) => {
           const grade: score[] = Object.values(response.data);
-          console.log("after api call" + ClassProvider?.students[i].studentId!)
-          console.log(grade);
           if (i === 0) {
             scores = [grade];
           } else {
             scores.push(grade);
           }
-          console.log('scores')
-          console.log(scores)
           if (i === ClassProvider?.students.length! - 1) {
             ClassProvider?.setScores(scores);
           }
@@ -121,8 +117,6 @@ const Class = () => {
   }, [ClassProvider?.students])
 
   useEffect(() => {
-    console.log("before assignment")
-    console.log(ClassProvider?.scores)
     const stud = ClassProvider?.students.map((student) => {
       let temp = {
         studentId: student.studentId,
@@ -137,8 +131,6 @@ const Class = () => {
           }
         })
       })
-      console.log("after assignment")
-      console.log(temp);
       return temp;
     })
     setStudents(stud!);
@@ -213,12 +205,12 @@ const Class = () => {
             <Button variant='contained'
               color='secondary'
               size='small'
-              onClick={() => navigate("/create_student")}
+              onClick={() => navigate(`/create_student/${classId}`)}
             >Add Student</Button>
             <Button variant='contained'
               color='secondary'
               size='small'
-              onClick={() => navigate("/create_exam")}
+              onClick={() => navigate(`/create_exam/${classId}`)}
             >Add Exam</Button>
           </Stack>
         </Stack>

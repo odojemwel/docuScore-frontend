@@ -130,13 +130,13 @@ function App() {
                     element={<CreateClass />
                     }
                   />
-                  <Route path='/create_student'
+                  <Route path='/create_student/:classId'
                     element={<CreateStudent />}
                   />
                   <Route path='/student'
                     element={<Student />}
                   />
-                  <Route path='/create_exam'
+                  <Route path='/create_exam/:classId'
                     element={<CreateExam />}
                   />
                   <Route path='/exam'
