@@ -20,6 +20,17 @@ class ExamService {
     })
   }
 
+  getExamById(examId: number) {
+    return axios.get(`${baseURL}getExamById?examId=${examId}`)
+  }
+
+  updateExam(newExam: exam, examId: number) {
+    return axios.put(`${baseURL}putExam?examId=${examId}`, {
+      examNo: newExam.examNo,
+      examTitle: newExam.examTitle,
+      totalItems: newExam.totalItems
+    })
+  }
 }
 
 export default new ExamService()

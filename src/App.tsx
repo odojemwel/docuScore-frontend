@@ -13,7 +13,7 @@ import Contact from './Pages/Contact';
 import PageContainer from './Components/PageContainer';
 import CreateExam from './Pages/CreateExam';
 import Student from './Pages/Student';
-import EditExam from './Pages/Exam';
+import Exam from './Pages/Exam';
 import DashboardProvider from './Helpers/Context/DashboardContext';
 import Register from './Pages/Register';
 import Login from './Pages/Login';
@@ -122,7 +122,7 @@ function App() {
                     element={<Class />
                     }
                   />
-                  <Route path='/edit_class'
+                  <Route path='/edit_class/:classId'
                     element={<EditClass />}
                   />
 
@@ -133,14 +133,14 @@ function App() {
                   <Route path='/create_student/:classId'
                     element={<CreateStudent />}
                   />
-                  <Route path='/student'
+                  <Route path='/student/:studentId'
                     element={<Student />}
                   />
                   <Route path='/create_exam/:classId'
                     element={<CreateExam />}
                   />
-                  <Route path='/exam'
-                    element={<EditExam />}
+                  <Route path='/exam/:examId'
+                    element={<Exam />}
                   />
                   <Route path='/profile'
                     element={<Profile />}

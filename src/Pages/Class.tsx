@@ -187,7 +187,7 @@ const Class = () => {
             />
             <Button variant='contained' size='small' color='secondary'
               sx={{ marginLeft: '10px' }}
-              onClick={() => navigate("/edit_class")}>
+              onClick={() => navigate(`/edit_class/${classId}`)}>
               <Typography variant='button'>Edit Class</Typography>
             </Button>
           </Box>
@@ -238,7 +238,6 @@ export const Name = (props: { cellValue: GridRenderCellParams }) => {
     <Box minWidth={'100 %'} sx={{ cursor: 'pointer' }} >
       <Box onClick={handleClick}>
         {props.cellValue.value}
-        {props.cellValue.id}
       </Box>
       <Menu
         anchorEl={anchorEl}
@@ -247,7 +246,7 @@ export const Name = (props: { cellValue: GridRenderCellParams }) => {
       >
         <MenuItem
           onClick={() => {
-            navigate("/student");
+            navigate(`/student/${props.cellValue.id}`);
             handleClose();
           }}>
           View Student
@@ -311,7 +310,7 @@ export const Exam = (props: { cellValue: GridColumnHeaderParams }) => {
       >
         <MenuItem
           onClick={() => {
-            navigate("/exam")
+            navigate(`/exam/${props.cellValue.colDef.field}`)
           }}>View Exam</MenuItem>
         <MenuItem onClick={handleClose}>Delete Exam</MenuItem>
       </Menu>

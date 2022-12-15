@@ -1,6 +1,8 @@
 import { EditRounded } from '@mui/icons-material'
 import { Avatar, Box, Card, CardHeader, IconButton, Typography } from '@mui/material'
+import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { ClassContext } from '../Helpers/Context/ClassContext'
 
 
 interface ClassCardContext {
@@ -13,6 +15,7 @@ interface ClassCardContext {
 
 const ClassCard = (props: ClassCardContext) => {
   const navigate = useNavigate()
+  const ClassProvider = useContext(ClassContext)
   return (
     <Card
       style={{ backgroundColor: '#B1FAFF' }}
@@ -22,11 +25,9 @@ const ClassCard = (props: ClassCardContext) => {
         action={
           <Avatar sx={{ backgroundColor: '#ffffff' }}>
             <IconButton sx={{ color: '#000000' }}
-              // component={Link}
-              // to="/edit_class"
               onClick={(e) => {
                 e.stopPropagation();
-                navigate("/edit_class");
+                navigate(`/edit_class/${ClassProvider?.class_.classId}`);
               }}
             >
               <EditRounded />

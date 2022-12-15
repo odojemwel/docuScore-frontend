@@ -17,6 +17,20 @@ class StudentService {
       deleted: false
     });
   }
+
+  getStudentByID(studentId: number) {
+    return axios.get(`${baseURL}getStudentsById/${studentId}`)
+  }
+
+  updateStudent(student: student, studentId: number) {
+    return axios.put(`${baseURL}putStudent?id=${studentId}`, {
+      studSchoolId: student.studSchoolId,
+      classNumber: student.classNumber,
+      firstName: student.firstName,
+      lastName: student.lastName,
+      deleted: false
+    })
+  }
 }
 
 export default new StudentService()

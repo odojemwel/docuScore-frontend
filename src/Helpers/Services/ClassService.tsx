@@ -1,4 +1,5 @@
 import axios from "axios"
+import { class_ } from "../Context/ClassContext";
 
 const baseUrl = "http://localhost:8080/Class/";
 class ClassService {
@@ -16,6 +17,15 @@ class ClassService {
       },
       deleted: false
     });
+  }
+
+  editClass(newClass: class_, classId: number) {
+    return axios.put(`${baseUrl}putClass?id=${classId}`, {
+      subject: newClass.subject,
+      yearLevel: newClass.yearLevel,
+      section: newClass.section,
+      deleted: false
+    })
   }
 
 }
