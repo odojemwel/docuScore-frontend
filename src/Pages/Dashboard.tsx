@@ -100,7 +100,8 @@ const Dashboard = () => {
           {
             DashboardProvider?.inactiveClasses.map(class_ => (
               <Grid item xs={3} key={class_.classId}>
-                <InactiveClass className={class_.subject} />
+                <InactiveClass classId={class_.classId}
+                  className={class_.subject} />
               </Grid>
             ))
           }

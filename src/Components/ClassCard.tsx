@@ -50,9 +50,11 @@ export default ClassCard
 
 
 
-export const InactiveClass = (props: { className: String }) => {
+export const InactiveClass = (props: { classId: number, className: String }) => {
+  const navigate = useNavigate()
   return (
     <Card
+      onClick={() => (navigate(`/class/${props.classId}`))}
       sx={{
         border: 2, width: 'auto', height: 150, borderColor: '#1CA1FC',
         display: 'flex', justifyContent: 'center', alignItems: 'center',

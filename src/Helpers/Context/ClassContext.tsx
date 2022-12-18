@@ -41,6 +41,12 @@ export const ClassContext = createContext<{
   setExams: Dispatch<React.SetStateAction<exam[]>>,
   scores: score[][],
   setScores: Dispatch<React.SetStateAction<score[][]>>,
+  studentDialog: boolean,
+  setStudentDialog: Dispatch<React.SetStateAction<boolean>>,
+  idDelete: number,
+  setIdDelete: Dispatch<React.SetStateAction<number>>,
+  examDialog: boolean,
+  setExamDialog: Dispatch<React.SetStateAction<boolean>>
 } | null>(null)
 
 export default function ClassProvider(props: { children: React.ReactNode }) {
@@ -48,9 +54,12 @@ export default function ClassProvider(props: { children: React.ReactNode }) {
   const [students, setStudents] = useState<student[]>([]);
   const [exams, setExams] = useState<exam[]>([]);
   const [scores, setScores] = useState<score[][]>([[]]);
+  const [studentDialog, setStudentDialog] = useState(false);
+  const [examDialog, setExamDialog] = useState(false);
+  const [idDelete, setIdDelete] = useState(0);
 
   return (
-    <ClassContext.Provider value={{ class_, setClass_, students, setStudents, exams, setExams, scores, setScores }}>
+    <ClassContext.Provider value={{ class_, setClass_, students, setStudents, exams, setExams, scores, setScores, studentDialog, setStudentDialog, idDelete, setIdDelete, examDialog, setExamDialog }}>
       {props.children}
     </ClassContext.Provider>
   )

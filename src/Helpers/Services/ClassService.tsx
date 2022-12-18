@@ -24,7 +24,7 @@ class ClassService {
       subject: newClass.subject,
       yearLevel: newClass.yearLevel,
       section: newClass.section,
-      deleted: false
+      deleted: newClass.deleted
     })
   }
 

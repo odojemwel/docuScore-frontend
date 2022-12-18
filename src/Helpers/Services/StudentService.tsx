@@ -31,6 +31,10 @@ class StudentService {
       deleted: false
     })
   }
+
+  deleteStudent(studentId: number) {
+    return axios.delete(`${baseURL}deleteStudent/${studentId}`)
+  }
 }
 
 export default new StudentService()

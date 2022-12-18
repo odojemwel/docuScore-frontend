@@ -1,4 +1,4 @@
-import { Button, Typography, Stack, Paper, Grid, MenuItem, Snackbar, Alert } from '@mui/material'
+import { Button, Typography, Stack, Paper, Grid, MenuItem, Snackbar, Alert, Switch, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@mui/material'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { useEffect, useContext, useState, FormEvent } from 'react';
@@ -14,6 +14,7 @@ const EditClass = () => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false)
   const [class_, setClass_] = useState({} as class_)
+  const [openDialog, setOpenDialog] = useState(false);
 
 
   useEffect(() => {
@@ -28,15 +29,13 @@ const EditClass = () => {
   }, [])
 
 
-  const handleYearLevel = (value: string) => {
-    let num = parseInt(value);
-    setClass_({ ...class_, yearLevel: num });
-  }
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (class_.subject === "" || class_.subject === "" || class_.yearLevel === -1) {
       setError(true);
+    } else if (class_.deleted) {
+      setOpenDialog(true);
     } else {
       ClassService.editClass(class_, class_.classId!)
         .then((response) => {
@@ -50,8 +49,48 @@ const EditClass = () => {
 
   }
 
+  const markInactive = () => {
+    if (class_.subject === "" || class_.subject === "" || class_.yearLevel === -1) {
+      setError(true);
+    } else {
+      ClassService.editClass(class_, class_.classId!)
+        .then((response) => {
+          if (response.data.classId) {
+            setOpenDialog(false);
+            setSuccess(true);
+          } else {
+            setError(true);
+          }
+        })
+    }
+  }
+
   return (
     <>
+
+      <Dialog
+        open={openDialog}
+        onClose={() => setOpenDialog(false)}
+      >
+        <DialogTitle>
+          {"Mark Class Inactive?"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText >
+            If you mark a class as inactive, all details will become read-only. This process is final and cannot be reverted. Do you wish to proceed?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button variant='outlined' color='secondary'
+            onClick={() => setOpenDialog(false)}
+          >No</Button>
+          <Button variant='contained' color='secondary' autoFocus
+            onClick={markInactive}
+          >
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
       <Snackbar
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={success}
@@ -114,7 +153,6 @@ const EditClass = () => {
                       select
                       value={class_.yearLevel || -1}
                       onChange={(e) => {
-                        // handleYearLevel(e.target.value);
                         setClass_({ ...class_, yearLevel: parseInt(e.target.value) });
                       }}
                       placeholder='Input Year Level'
@@ -146,6 +184,32 @@ const EditClass = () => {
                       onChange={(e) => setClass_({ ...class_, section: e.target.value })} />
                   </Grid>
                 </Grid>
+                <Grid container>
+                  <Grid item xs={3} display='flex' justifyContent='end' alignItems='center'>
+                    <Typography>Inactive</Typography>
+                  </Grid>
+                  <Grid item xs={9}>
+                    <TextField sx={{ marginLeft: 1, width: '80%' }}
+                      select
+                      value={class_.deleted ? 1 : 0}
+                      onChange={(e) => {
+                        setClass_({ ...class_, deleted: parseInt(e.target.value) === 0 ? false : true })
+                      }}
+                      size='small' >
+                      <MenuItem value={0}>
+                        <Typography >
+                          No
+                        </Typography>
+                      </MenuItem>
+                      <MenuItem value={1}>
+                        <Typography >
+                          Yes
+                        </Typography>
+                      </MenuItem>
+                    </TextField>
+                  </Grid>
+                </Grid>
+
                 <Box display='flex' justifyContent='center'>
                   <Button
                     variant="contained"

@@ -31,6 +31,10 @@ class ExamService {
       totalItems: newExam.totalItems
     })
   }
+
+  deleteExam(examId: number) {
+    return axios.delete(`${baseURL}deleteExam/${examId}`)
+  }
 }
 
 export default new ExamService()
