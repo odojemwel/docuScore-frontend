@@ -43,7 +43,7 @@ const TopNavBar = () => {
         sx={{ flexGrow: 1 }}
         indicatorColor="secondary"
         value={NavContext?.tab_value}
-        onChange={(e, value) => { NavContext?.setTab_value(value); console.log(value) }}
+        onChange={(e, value) => NavContext?.setTab_value(value)}
       >
         <Tab value={1} sx={{ color: 'primary.contrastText', marginX: '10px' }}
           label="About Us" disableTouchRipple disableRipple component={Link} to={"/about_us"} />

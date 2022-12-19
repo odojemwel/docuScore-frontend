@@ -23,11 +23,11 @@ const Contact = () => {
           spacing={4}>
           <Grid container justifyContent='center' alignItems={'center'}>
             <Grid item >
-              <Typography variant='h5'>Contact docuScore</Typography>
+              <Typography variant='h4'>Contact docuScore</Typography>
             </Grid>
           </Grid>
           <Paper
-            elevation={6}
+            elevation={5}
             sx={{
               width: '750px',
               padding: '30px',
@@ -35,37 +35,61 @@ const Contact = () => {
               flexDirection: 'column',
               alignItems: 'center'
             }}>
-            <Grid container justifyContent='center' alignItems={'center'}>
-              <Grid item >
-                <Typography>Have some questions? Talk to us. We’d love to hear from you</Typography>
-              </Grid>
-            </Grid>
-            <Stack width='100%' spacing={3} marginY='30px'>
-              <Grid container>
-                <Grid item xs={3} display='flex' justifyContent='end' alignItems='center'>
-                  <img src={location} height={100} width={100} />
-                </Grid>
-                <Grid item xs={8} marginY='40px' >
-                  <Typography>N. Bacalso Ave., Cebu City Cebu, Philippines 6000</Typography>
+            <Stack marginY={5} rowGap={5} width='100%'>
+              <Grid container justifyContent='center' alignItems={'center'}>
+                <Grid item >
+                  <Typography>
+                    Have some questions? Talk to us. We’d love to hear from you
+                  </Typography>
                 </Grid>
               </Grid>
-              <Grid container>
+              <Grid container spacing={5} alignItems='center'>
                 <Grid item xs={3} display='flex' justifyContent='end' alignItems='center'>
-                  <img src={phone} height={98} width={105} />
+                  <img src={location} height={50} />
+                </Grid>
+                <Grid item xs={9} display={'flex'} justifyContent='start' >
+                  <Typography>
+                    N. Bacalso Ave., Cebu City Cebu, Philippines 6000
+                  </Typography>
+                </Grid>
+              </Grid>
+              <Grid container spacing={5} alignItems='center'>
+                <Grid item xs={3} display='flex' justifyContent='end' alignItems='center'>
+                  <img src={phone} height={50} />
+                </Grid>
+                <Grid item xs={9} display={'flex'} justifyContent='start' >
+                  <Typography>
+                    +63 (32) 1234567
+                  </Typography>
+                </Grid>
+              </Grid>
+              <Grid container spacing={5} alignItems='center'>
+                <Grid item xs={3} display='flex' justifyContent='end' alignItems='center'>
+                  <img src={email} height={50} />
+                </Grid>
+                <Grid item xs={9} display={'flex'} justifyContent='start' >
+                  <Typography>
+                    customercare@docuScore.co
+                  </Typography>
+                </Grid>
+              </Grid>
+              {/* <Grid container>
+                <Grid item xs={3} display='flex' justifyContent='end' alignItems='center'>
+                  <img src={phone} height={50} />
                 </Grid>
                 <Grid item xs={8} marginY='20px' >
-                  <Typography>+63 (32) 1234567'</Typography>
+                  <Typography>+63 (32) 1234567</Typography>
                 </Grid>
               </Grid>
 
               <Grid container>
                 <Grid item xs={3} display='flex' justifyContent='end' alignItems='center'>
-                  <img src={email} height={95} width={95} />
+                  <img src={email} height={50} />
                 </Grid>
                 <Grid item xs={8} marginY='20px' >
                   <Typography>customercare@docuScore.com</Typography>
                 </Grid>
-              </Grid>
+              </Grid> */}
             </Stack>
           </Paper>
         </Stack>

@@ -15,7 +15,7 @@ interface ClassCardContext {
 
 const ClassCard = (props: ClassCardContext) => {
   const navigate = useNavigate()
-  const ClassProvider = useContext(ClassContext)
+
   return (
     <Card
       style={{ backgroundColor: '#B1FAFF' }}
@@ -27,7 +27,7 @@ const ClassCard = (props: ClassCardContext) => {
             <IconButton sx={{ color: '#000000' }}
               onClick={(e) => {
                 e.stopPropagation();
-                navigate(`/edit_class/${ClassProvider?.class_.classId}`);
+                navigate(`/edit_class/${props.classId}`);
               }}
             >
               <EditRounded />
