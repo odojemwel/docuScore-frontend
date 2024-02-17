@@ -1,12 +1,12 @@
-import { Button, Typography, Stack, Paper, Grid, MenuItem, FormControl, InputLabel, Select, Snackbar, Alert } from '@mui/material'
+import { Button, Typography, Stack, Paper, Grid, MenuItem, Snackbar, Alert } from '@mui/material'
 import { FormEvent, useContext, useEffect, useState } from 'react'
 import { PageContainerContext } from '../Components/PageContainer'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { useNavigate } from 'react-router-dom';
-import { class_ } from '../Helpers/Context/ClassContext';
 import ClassService from '../Helpers/Services/ClassService';
 import { LoginContext } from '../Helpers/Context/LoginContext';
+import Alerts from '../Components/Alerts';
 
 const CreateClass = () => {
   const NavContext = useContext(PageContainerContext);
@@ -14,7 +14,7 @@ const CreateClass = () => {
   const navigate = useNavigate();
   const [subject, setSubject] = useState("")
   const [section, setSection] = useState("")
-  const [yearLevel, setYearLevel] = useState(-1);
+  const [yearLevel, setYearLevel] = useState("");
   const yearLevels = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false)
@@ -25,16 +25,16 @@ const CreateClass = () => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    if (subject === "" || section === "" || yearLevel === -1) {
+    if (subject === "" || section === "" || yearLevel === "") {
       setError(true)
     } else {
-      ClassService.createClass(subject, yearLevel, section, LoginProvider?.loggedIn.teacherId!)
+      ClassService.createClass(subject, parseInt(yearLevel), section, LoginProvider?.loggedIn.teacherId!)
         .then((response) => {
           if (response.data.classId) {
             setSuccess(true);
             setSection("");
             setSubject("");
-            setYearLevel(-1);
+            setYearLevel("");
           }
         })
         .catch((error) => console.log(error));
@@ -45,7 +45,7 @@ const CreateClass = () => {
   const handleYearLevel = (value: string) => {
     let num = parseInt(value);
     if (num >= 1 && num <= 12) {
-      setYearLevel(num)
+      setYearLevel(value)
     } else {
       setError(true);
     }
@@ -53,26 +53,8 @@ const CreateClass = () => {
 
   return (
     <>
-      <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        open={success}
-        onClose={() => setSuccess(false)}
-        autoHideDuration={2000}
-      >
-        <Alert severity='success' onClose={() => setSuccess(false)} variant="standard">
-          Class Created Successfully
-        </Alert>
-      </Snackbar>
-      <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        open={error}
-        onClose={() => setError(false)}
-        autoHideDuration={2000}
-      >
-        <Alert severity='error' onClose={() => setError(false)} variant="standard">
-          Please Input Valid Class Information
-        </Alert>
-      </Snackbar>
+      <Alerts open={success} onClose={() => setSuccess(false)} message='Class Created Successfully' />
+      <Alerts error open={error} onClose={() => setError(false)} message="Please Input Valid Class Information" />
       <Box sx={{
         display: 'flex',
         justifyContent: 'center',
@@ -109,24 +91,21 @@ const CreateClass = () => {
                 </Grid>
                 <Grid container>
                   <Grid item xs={3} display='flex' justifyContent='end' alignItems='center'>
-                    <Typography>Year Level</Typography>
+                    <label htmlFor='year_level'>Year Level</label>
                   </Grid>
                   <Grid item xs={9}>
                     <TextField sx={{ marginLeft: 1, width: '80%' }}
-                      select
-                      // type="number"
-                      defaultValue={-1}
+                      id='year_level' select
                       value={yearLevel}
-                      // value={newClass.yearLevel}
-                      onChange={(e) => {
-                        handleYearLevel(e.target.value);
-                      }}
-                      placeholder='Input Year Level'
-                      size='small' >
-                      <MenuItem value={-1}>
-                        <Typography color={"#A9A9A9"}>
-                          Select Year Level
-                        </Typography>
+                      onChange={(e) => { handleYearLevel(e.target.value); }}
+                      size='small'
+                      defaultValue=""
+                      SelectProps={{ displayEmpty: true }}
+                    >
+                      <MenuItem value="">
+                        <label style={{ color: '#b9b5b5', opacity: '100%' }}>
+                          Select a Year Level
+                        </label>
                       </MenuItem>
                       {
                         yearLevels.map((value) => (

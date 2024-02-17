@@ -8,6 +8,10 @@ class StudentService {
     return axios.get(`${baseURL}getStudentsByClassId?classId=${classId}`)
   }
 
+  getStudentByStudentNumber(sNumber: number) {
+    return axios.get(`${baseURL}getByStudentNumber?sNumber=${sNumber}`)
+  }
+
   addStudent(student: student, classId: number) {
     return axios.post(`${baseURL}postStudent?class_id=${classId}`, {
       studSchoolId: student.studSchoolId,

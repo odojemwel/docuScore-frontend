@@ -76,9 +76,11 @@ export default function PageContainer(props: PageContainerProps) {
                       <CreateClassButton />
                     </ListItem>
                   </Link>
-                  <ListItem disablePadding disableGutters>
-                    <ScanButton />
-                  </ListItem>
+                  <Link style={{ textDecoration: 'none' }} to={"/scan_score"}>
+                    <ListItem disablePadding disableGutters>
+                      <ScanButton />
+                    </ListItem>
+                  </Link>
                   <ListItem disablePadding disableGutters>
                     <ExportButton />
                   </ListItem>

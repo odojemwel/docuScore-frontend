@@ -20,6 +20,7 @@ import Login from './Pages/Login';
 import { LoginContext } from './Helpers/Context/LoginContext';
 import { useContext } from 'react';
 import ClassProvider from './Helpers/Context/ClassContext';
+import ScanScore from './Pages/Scan';
 
 
 const theme = createTheme({
@@ -89,6 +90,10 @@ const theme = createTheme({
               borderColor: '#76C8FF',
             },
           },
+          '& .MuiInputBase-input::placeholder': {
+            color: '#b9b5b5 ',
+            opacity: '100%'
+          }
 
         }
       }
@@ -129,6 +134,9 @@ function App() {
                   <Route path='/create_class'
                     element={<CreateClass />
                     }
+                  />
+                  <Route path='/scan_score'
+                    element={<ScanScore />}
                   />
                   <Route path='/create_student/:classId'
                     element={<CreateStudent />}

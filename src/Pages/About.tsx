@@ -40,7 +40,7 @@ const About = () => {
                 </Box>
                 <Box>
                   <Typography style={{ textAlign: "center" }} >
-                    Docuscore is a solution concieved by team vVv to contribute to the growing number of IT solutions in the Educationsector. Docuscore aims to help secondary school teachers by letting them scan the scores of their
+                    Docuscore is a solution concieved by team vVv to contribute to the growing number of IT solutions in the Education sector. Docuscore aims to help secondary school teachers by letting them scan the scores of their
                     students and save it anytime to their class record sheet. A big help from the hassle of traditional inputting of scores.
                   </Typography>
                 </Box>

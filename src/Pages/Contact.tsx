@@ -73,23 +73,6 @@ const Contact = () => {
                   </Typography>
                 </Grid>
               </Grid>
-              {/* <Grid container>
-                <Grid item xs={3} display='flex' justifyContent='end' alignItems='center'>
-                  <img src={phone} height={50} />
-                </Grid>
-                <Grid item xs={8} marginY='20px' >
-                  <Typography>+63 (32) 1234567</Typography>
-                </Grid>
-              </Grid>
-
-              <Grid container>
-                <Grid item xs={3} display='flex' justifyContent='end' alignItems='center'>
-                  <img src={email} height={50} />
-                </Grid>
-                <Grid item xs={8} marginY='20px' >
-                  <Typography>customercare@docuScore.com</Typography>
-                </Grid>
-              </Grid> */}
             </Stack>
           </Paper>
         </Stack>
